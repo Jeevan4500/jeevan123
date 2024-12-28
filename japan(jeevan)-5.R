@@ -176,18 +176,24 @@ if (cor_test_result$p.value < alpha) {
 
 
 
+
+
 # Question-4 (b):
 
 library(corrplot)
 
-# Select numerical columns
-num_vars <- japan %>%
-  select(latitude, longitude, depth, mag, gap)
+num_vars <- japan[sapply(japan, is.numeric)]
 
-# Correlation matrix
-cor_matrix <- cor(num_vars, use = "complete.obs")
+# Impute missing values with the column mean
+num_vars_imputed <- num_vars %>%
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
 
-corrplot(cor_matrix, method = "color", type = "upper", 
+# Compute the correlation matrix
+cor_matrix <- cor(num_vars_imputed, use = "complete.obs")
+
+# Visualize the correlation matrix
+library(corrplot)
+corrplot(cor_matrix, method = "color", type = "upper",
          tl.col = "black", tl.srt = 45, 
          addCoef.col = "black")
 
