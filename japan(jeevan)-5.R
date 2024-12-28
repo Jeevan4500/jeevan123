@@ -41,8 +41,8 @@ library(corrplot)
 
 # Scatter plot with linear trendline
 ggplot(japan, aes(x = mag, y = depth)) +
-  geom_point(color = "blue", alpha = 0.5) + # Scatter plot points
-  geom_smooth(method = "lm", color = "red", se = FALSE) + # Linear trendline
+  geom_point(color = "blue", alpha = 0.5) + 
+  geom_smooth(method = "lm", color = "red", se = FALSE) + 
   labs(
     title = "Scatter Plot of Earthquake Magnitude vs. Depth",
     x = "Magnitude",
@@ -85,7 +85,6 @@ japan$mag_category <- cut(
 )
 
 
-# Boxplot for depth by magnitude categories
 ggplot(japan, aes(x = mag_category, y = depth)) +
   geom_boxplot(outlier.color = "red", fill = "lightblue") +
   labs(
