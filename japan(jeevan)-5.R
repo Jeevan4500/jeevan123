@@ -152,7 +152,6 @@ ggplot(proportion_data, aes(x = mag, y = percentage, fill = depth_category)) +
 
 install.packages("ggpubr")
 
-# Load libraries
 library(ggplot2)
 library(ggpubr)
 library(dplyr)
@@ -160,7 +159,6 @@ library(dplyr)
 # Perform Spearman's correlation test
 cor_test_result <- cor.test(japan$depth, japan$mag, method = "spearman")
 
-# Display results
 cat("Spearman's Correlation Test Results (Depth -> Magnitude):\n")
 cat("Correlation Coefficient (rho):", cor_test_result$estimate, "\n")
 cat("p-value:", cor_test_result$p.value, "\n")
@@ -180,14 +178,7 @@ if (cor_test_result$p.value < alpha) {
 
 # Question-4 (b):
 
-# Load necessary libraries
 library(corrplot)
-
-# Step 1: Create a correlation matrix for numerical variables only
-# Select only numeric columns from your dataset
-#num_vars <- japan[sapply(japan, is.numeric)]
-#cor_matrix <- cor(num_vars, use = "complete.obs")
-
 
 # Select numerical columns
 num_vars <- japan %>%
@@ -196,13 +187,10 @@ num_vars <- japan %>%
 # Correlation matrix
 cor_matrix <- cor(num_vars, use = "complete.obs")
 
-# Step 2: Visualize the correlation matrix
 corrplot(cor_matrix, method = "color", type = "upper", 
          tl.col = "black", tl.srt = 45, 
          addCoef.col = "black")
 
-# Step 3: Perform the Wilcoxon (Mann-Whitney U) test
-# Ensure 'group' is a factor with two levels and 'dependent_var' is numeric
 wilcox_result <- wilcox.test(japan$depth , data = japan, exact = FALSE)
 
 # Display the Wilcoxon test result
@@ -218,7 +206,6 @@ japan <- japan[!is.na(japan$mag) & !is.na(japan$depth), ]
 
 cor_test_result <- cor.test(japan$mag, japan$depth, method = "pearson")
 
-# Display results
 cat("Correlation Coefficient (r):", cor_test_result$estimate, "\n")
 cat("Test Statistic (t-value):", cor_test_result$statistic, "\n")
 cat("p-value:", cor_test_result$p.value, "\n")
