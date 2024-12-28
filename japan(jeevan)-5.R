@@ -115,13 +115,9 @@ ggplot(japan, aes(x = depth)) +
 
 # Question-3
 
-# Load necessary libraries
 library(ggplot2)
 library(dplyr)
 
-# Sample data preparation
-# Assuming we have a dataset with columns 'mag' (magnitude categories) and 'depth'
-# Define depth levels (e.g., shallow < 70 km, intermediate 70-300 km, deep > 300 km)
 japan <- japan %>%
   mutate(
     depth_category = case_when(
@@ -131,11 +127,10 @@ japan <- japan %>%
     )
   )
 
-# Calculate proportions within each magnitude category
 proportion_data <- japan %>%
   group_by(mag, depth_category) %>%
   summarize(count = n()) %>%
-  mutate(percentage = count / sum(count) * 100) # Normalize to 100%
+  mutate(percentage = count / sum(count) * 100) 
 
 # Create the normalized stacked bar chart
 ggplot(proportion_data, aes(x = mag, y = percentage, fill = depth_category)) +
